@@ -23,17 +23,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Auto-redirect if already logged in
-onAuthStateChanged(auth, (user) => {
-  if (user) window.location.href = "Home.html";
-});
+// ❌ Removed onAuthStateChanged block to prevent auto-redirect to Home.html
 
 // Handle email login
 async function emailLogin(email, password, remember) {
   try {
     await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
     await signInWithEmailAndPassword(auth, email, password);
-    // onAuthStateChanged will handle the redirect
+    // ✅ Redirect to Home after successful login
+    window.location.href = "Home.html";
   } catch (error) {
     alert(`Login failed: ${error.message}`);
   }
@@ -46,8 +44,9 @@ async function googleLogin() {
     if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
       await signInWithRedirect(auth, provider);
     } else {
-      await signInWithPopup(auth, provider);
-      // onAuthStateChanged will handle the redirect
+      const result = await signInWithPopup(auth, provider);
+      // ✅ Redirect to Home after successful Google login
+      window.location.href = "Home.html";
     }
   } catch (error) {
     alert(`Google login failed: ${error.message}`);
@@ -57,7 +56,11 @@ async function googleLogin() {
 // Handle redirect result after Google login on mobile
 (async function handleRedirect() {
   try {
-    await getRedirectResult(auth);
+    const result = await getRedirectResult(auth);
+    if (result?.user) {
+      // ✅ Redirect to Home after successful Google login (mobile)
+      window.location.href = "Home.html";
+    }
   } catch (error) {
     console.log("Redirect result error:", error);
   }
@@ -74,4 +77,3 @@ document.getElementById('loginForm')?.addEventListener('submit', (e) => {
 
 // Google login button
 document.getElementById('googleBtn')?.addEventListener('click', googleLogin);
-
