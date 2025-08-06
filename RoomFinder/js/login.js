@@ -6,6 +6,8 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   setPersistence,
   browserSessionPersistence,
   browserLocalPersistence
@@ -23,6 +25,7 @@ const firebaseConfig = {
   measurementId: "G-3QCM5F74WQ"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -30,7 +33,12 @@ const auth = getAuth(app);
 const loginForm = document.getElementById('loginForm');
 const submitBtn = document.querySelector('.submit-btn');
 
-// Simple spinner animation that works everywhere
+// Device Detection
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+// Spinner Functions
 const showSpinner = (btn) => {
   const originalHTML = btn.innerHTML;
   btn.innerHTML = `
@@ -71,28 +79,78 @@ const handleLogin = async (email, password) => {
 };
 
 // Social Login Handler
-const handleSocialAuth = async (provider) => {
+const handleSocialAuth = async (provider, btnId) => {
   try {
-    await signInWithPopup(auth, provider);
-    window.location.href = 'Home.html';
+    const btn = document.getElementById(btnId);
+    const originalBtn = showSpinner(btn);
+    
+    if (isMobileDevice()) {
+      provider.setCustomParameters({
+        display: 'touch'
+      });
+      await signInWithRedirect(auth, provider);
+    } else {
+      await signInWithPopup(auth, provider);
+      window.location.href = 'Home.html';
+    }
   } catch (error) {
     throw error;
   }
 };
 
-// Universal Error Handler
+// Handle Redirect Result
+const handleRedirectResult = async () => {
+  try {
+    const result = await getRedirectResult(auth);
+    if (result) {
+      window.location.href = 'Home.html';
+    }
+  } catch (error) {
+    showError(error);
+  }
+};
+
+// Enhanced Error Handler
 const showError = (error) => {
   const messages = {
-    'auth/invalid-email': 'Please enter a valid email',
-    'auth/user-not-found': 'Email not found',
+    'auth/invalid-email': 'Please enter a valid email address',
+    'auth/user-disabled': 'This account has been disabled',
+    'auth/user-not-found': 'No account found with this email',
     'auth/wrong-password': 'Incorrect password',
-    'auth/too-many-requests': 'Too many attempts. Try later',
-    'auth/network-request-failed': 'Network error. Check connection',
+    'auth/email-already-in-use': 'Email already in use',
+    'auth/operation-not-allowed': 'This operation is not allowed',
+    'auth/weak-password': 'Password should be at least 6 characters',
+    'auth/too-many-requests': 'Too many attempts. Please try again later',
+    'auth/network-request-failed': 'Network error. Please check your connection',
     'auth/popup-closed-by-user': 'Login window was closed',
-    'auth/account-exists-with-different-credential': 'Account exists with different login method'
+    'auth/account-exists-with-different-credential': 'Account exists with different login method',
+    'auth/popup-blocked': 'Popup blocked. Please allow popups for this site',
+    'auth/cancelled-popup-request': 'Another login attempt is in progress',
+    'auth/web-storage-unsupported': 'Your browser settings prevent login. Try another browser or enable cookies',
+    'auth/internal-error': 'Something went wrong. Please try again'
   };
   
-  alert(messages[error.code] || 'Login failed. Please try again.');
+  const errorMessage = messages[error.code] || `Login failed: ${error.message}`;
+  
+  // Create a more user-friendly error display
+  const errorElement = document.getElementById('loginError') || document.createElement('div');
+  errorElement.id = 'loginError';
+  errorElement.style.color = '#ff4444';
+  errorElement.style.marginTop = '10px';
+  errorElement.style.padding = '10px';
+  errorElement.style.borderRadius = '4px';
+  errorElement.style.backgroundColor = '#ffebee';
+  errorElement.style.textAlign = 'center';
+  errorElement.innerHTML = errorMessage;
+  
+  if (!document.getElementById('loginError')) {
+    loginForm.appendChild(errorElement);
+  }
+  
+  // Auto-hide error after 5 seconds
+  setTimeout(() => {
+    errorElement.style.display = 'none';
+  }, 5000);
 };
 
 // Form Submission
@@ -111,26 +169,38 @@ loginForm.addEventListener('submit', async (e) => {
 });
 
 // Social Login Buttons
-['googleBtn', 'facebookBtn'].forEach(id => {
-  const btn = document.getElementById(id);
-  btn.addEventListener('click', async () => {
-    const originalBtn = showSpinner(btn);
-    try {
-      await handleSocialAuth(
-        id === 'googleBtn' ? new GoogleAuthProvider() : new FacebookAuthProvider()
-      );
-    } catch (error) {
-      showError(error);
-      restoreButton(btn, originalBtn);
+document.addEventListener('DOMContentLoaded', () => {
+  handleRedirectResult();
+  
+  ['googleBtn', 'facebookBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', async () => {
+        try {
+          await handleSocialAuth(
+            id === 'googleBtn' ? new GoogleAuthProvider() : new FacebookAuthProvider(),
+            id
+          );
+        } catch (error) {
+          showError(error);
+          const btn = document.getElementById(id);
+          if (btn) {
+            btn.innerHTML = id === 'googleBtn' ? 'Continue with Google' : 'Continue with Facebook';
+            btn.disabled = false;
+          }
+        }
+      });
     }
   });
 });
 
-// Add minimal spinner animation style
-document.head.insertAdjacentHTML('beforeend', `
-  <style>
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
-`);
+// Add spinner animation style
+if (!document.querySelector('style[data-spinner]')) {
+  document.head.insertAdjacentHTML('beforeend', `
+    <style data-spinner>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  `);
+}
