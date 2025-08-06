@@ -29,38 +29,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// DOM Elements
-const loginForm = document.getElementById('loginForm');
-const submitBtn = document.querySelector('.submit-btn');
+// Check for redirect result immediately
+(async function initAuth() {
+  try {
+    const result = await getRedirectResult(auth);
+    if (result?.user) {
+      window.location.href = 'Home.html';
+    }
+  } catch (error) {
+    console.error('Redirect result error:', error);
+  }
+})();
 
 // Device Detection
 const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-};
-
-// Spinner Functions
-const showSpinner = (btn) => {
-  const originalHTML = btn.innerHTML;
-  btn.innerHTML = `
-    <div style="
-      display: inline-block;
-      width: 1rem;
-      height: 1rem;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 8px;
-    "></div>
-    Processing...
-  `;
-  btn.disabled = true;
-  return originalHTML;
-};
-
-const restoreButton = (btn, originalHTML) => {
-  btn.innerHTML = originalHTML;
-  btn.disabled = false;
 };
 
 // Core Login Function
@@ -68,7 +51,7 @@ const handleLogin = async (email, password) => {
   try {
     await setPersistence(
       auth, 
-      document.getElementById('rememberMe').checked ? 
+      document.getElementById('rememberMe')?.checked ? 
         browserLocalPersistence : browserSessionPersistence
     );
     await signInWithEmailAndPassword(auth, email, password);
@@ -78,129 +61,89 @@ const handleLogin = async (email, password) => {
   }
 };
 
-// Social Login Handler
-const handleSocialAuth = async (provider, btnId) => {
+// Social Auth Handler
+const handleSocialAuth = async (providerType) => {
   try {
-    const btn = document.getElementById(btnId);
-    const originalBtn = showSpinner(btn);
-    
+    let provider;
+    if (providerType === 'google') {
+      provider = new GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+    } else if (providerType === 'facebook') {
+      provider = new FacebookAuthProvider();
+      provider.addScope('email');
+    }
+
     if (isMobileDevice()) {
+      // For mobile devices
       provider.setCustomParameters({
-        display: 'touch'
+        display: 'touch',
+        prompt: 'select_account'
       });
       await signInWithRedirect(auth, provider);
     } else {
-      await signInWithPopup(auth, provider);
-      window.location.href = 'Home.html';
+      // For desktop
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+      const result = await signInWithPopup(auth, provider);
+      if (result.user) {
+        window.location.href = 'Home.html';
+      }
     }
   } catch (error) {
+    console.error(`${providerType} auth error:`, error);
     throw error;
   }
 };
 
-// Handle Redirect Result
-const handleRedirectResult = async () => {
-  try {
-    const result = await getRedirectResult(auth);
-    if (result) {
-      window.location.href = 'Home.html';
-    }
-  } catch (error) {
-    showError(error);
-  }
-};
-
-// Enhanced Error Handler
-const showError = (error) => {
-  const messages = {
-    'auth/invalid-email': 'Please enter a valid email address',
-    'auth/user-disabled': 'This account has been disabled',
-    'auth/user-not-found': 'No account found with this email',
-    'auth/wrong-password': 'Incorrect password',
-    'auth/email-already-in-use': 'Email already in use',
-    'auth/operation-not-allowed': 'This operation is not allowed',
-    'auth/weak-password': 'Password should be at least 6 characters',
-    'auth/too-many-requests': 'Too many attempts. Please try again later',
-    'auth/network-request-failed': 'Network error. Please check your connection',
-    'auth/popup-closed-by-user': 'Login window was closed',
-    'auth/account-exists-with-different-credential': 'Account exists with different login method',
-    'auth/popup-blocked': 'Popup blocked. Please allow popups for this site',
-    'auth/cancelled-popup-request': 'Another login attempt is in progress',
-    'auth/web-storage-unsupported': 'Your browser settings prevent login. Try another browser or enable cookies',
-    'auth/internal-error': 'Something went wrong. Please try again'
-  };
-  
-  const errorMessage = messages[error.code] || `Login failed: ${error.message}`;
-  
-  // Create a more user-friendly error display
-  const errorElement = document.getElementById('loginError') || document.createElement('div');
-  errorElement.id = 'loginError';
-  errorElement.style.color = '#ff4444';
-  errorElement.style.marginTop = '10px';
-  errorElement.style.padding = '10px';
-  errorElement.style.borderRadius = '4px';
-  errorElement.style.backgroundColor = '#ffebee';
-  errorElement.style.textAlign = 'center';
-  errorElement.innerHTML = errorMessage;
-  
-  if (!document.getElementById('loginError')) {
-    loginForm.appendChild(errorElement);
-  }
-  
-  // Auto-hide error after 5 seconds
-  setTimeout(() => {
-    errorElement.style.display = 'none';
-  }, 5000);
-};
-
 // Form Submission
-loginForm.addEventListener('submit', async (e) => {
+document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const originalBtn = showSpinner(submitBtn);
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
+  const email = document.getElementById('email')?.value.trim();
+  const password = document.getElementById('password')?.value;
+  
+  if (!email || !password) return;
 
   try {
     await handleLogin(email, password);
   } catch (error) {
-    showError(error);
-    restoreButton(submitBtn, originalBtn);
+    console.error('Login error:', error);
+    alert(getErrorMessage(error));
   }
 });
 
 // Social Login Buttons
-document.addEventListener('DOMContentLoaded', () => {
-  handleRedirectResult();
-  
-  ['googleBtn', 'facebookBtn'].forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      btn.addEventListener('click', async () => {
-        try {
-          await handleSocialAuth(
-            id === 'googleBtn' ? new GoogleAuthProvider() : new FacebookAuthProvider(),
-            id
-          );
-        } catch (error) {
-          showError(error);
-          const btn = document.getElementById(id);
-          if (btn) {
-            btn.innerHTML = id === 'googleBtn' ? 'Continue with Google' : 'Continue with Facebook';
-            btn.disabled = false;
-          }
-        }
-      });
-    }
+document.getElementById('googleBtn')?.addEventListener('click', () => {
+  handleSocialAuth('google').catch(error => {
+    console.error('Google auth failed:', error);
+    alert(getErrorMessage(error));
   });
 });
 
-// Add spinner animation style
-if (!document.querySelector('style[data-spinner]')) {
-  document.head.insertAdjacentHTML('beforeend', `
-    <style data-spinner>
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-  `);
+document.getElementById('facebookBtn')?.addEventListener('click', () => {
+  handleSocialAuth('facebook').catch(error => {
+    console.error('Facebook auth failed:', error);
+    alert(getErrorMessage(error));
+  });
+});
+
+// Error Message Mapping
+function getErrorMessage(error) {
+  const errorMap = {
+    'auth/invalid-email': 'Invalid email address',
+    'auth/user-disabled': 'Account disabled',
+    'auth/user-not-found': 'Account not found',
+    'auth/wrong-password': 'Incorrect password',
+    'auth/too-many-requests': 'Too many attempts. Try again later',
+    'auth/network-request-failed': 'Network error. Check your connection',
+    'auth/popup-closed-by-user': 'Login window was closed',
+    'auth/account-exists-with-different-credential': 'Account exists with different login method',
+    'auth/popup-blocked': 'Popup blocked. Allow popups for this site',
+    'auth/cancelled-popup-request': 'Login process cancelled',
+    'auth/web-storage-unsupported': 'Browser settings prevent login',
+    'auth/internal-error': 'Login failed. Please try again'
+  };
+  
+  return errorMap[error.code] || `Login error: ${error.message}`;
 }
