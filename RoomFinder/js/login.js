@@ -25,7 +25,7 @@ const auth = getAuth(app);
 
 // Auto-redirect if already logged in
 onAuthStateChanged(auth, (user) => {
-  if (user) window.location.href = "home.html";
+  if (user) window.location.href = "Home.html";
 });
 
 // Handle email login
@@ -74,3 +74,4 @@ document.getElementById('loginForm')?.addEventListener('submit', (e) => {
 
 // Google login button
 document.getElementById('googleBtn')?.addEventListener('click', googleLogin);
+
