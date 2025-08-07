@@ -2,227 +2,528 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Roomefy - Book Smart Stays for Students & Professionals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roomefy - India's trusted room rental platform with verified listings">
+    <title>Roomefy | Find Verified Rooms & Tenants</title>
+    
+    <!-- Preload Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/home.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/color/48/000000/home--v1.png" type="image/png">
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    <!-- Trust Banner -->
+    <aside class="trust-banner">
         <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">
-                    <i class="fas fa-hotel"></i>
-                    <span>Roomefy</span>
-                </a>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">Rooms</a></li>
-                    <li><a href="#">Destinations</a></li>
-                    <li><a href="#">Deals</a></li>
-                    <li><a href="#">Contact</a></li>
+            <div class="trust-items">
+                <span><i class="fas fa-check-circle"></i> Verified Listings</span>
+                <span><i class="fas fa-shield-alt"></i> Secure Platform</span>
+                <span><i class="fas fa-star"></i> Trusted Community</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-home"></i> <span>Roomefy</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active" aria-current="page">Home</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#" class="btn btn-outline">Login</a></li>
+                    <li><a href="#" class="btn btn-primary">Sign Up</a></li>
                 </ul>
-                <div class="auth-buttons">
-                    <a href="#" class="btn btn-outline">Login</a>
-                    <a href="#" class="btn btn-primary">Sign Up</a>
-                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Rooms</a></li>
-            <li><a href="#">Destinations</a></li>
-            <li><a href="#">Deals</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <div class="auth-buttons">
-            <a href="#" class="btn btn-outline">Login</a>
-            <a href="#" class="btn btn-primary">Sign Up</a>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Find Your Perfect Room</h1>
-            <p>Affordable rooms for students, professionals, and travelers</p>
-            <div class="search-box">
-                <div class="search-options">
-                    <div class="search-option active" data-type="city">City</div>
-                    <div class="search-option" data-type="campus">Near Campus</div>
-                    <div class="search-option" data-type="business">Business Area</div>
-                </div>
-                <input type="text" class="search-input" placeholder="Search by location...">
-                <button class="search-btn"><i class="fas fa-search"></i> Find Stays</button>
+        <div class="hero-background">
+            <div class="bg-overlay"></div>
+            <div class="room-slideshow">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
             </div>
-            <div class="hero-tags">
-                <span><i class="fas fa-wifi"></i> Free WiFi</span>
-                <span><i class="fas fa-utensils"></i> Meal Plans</span>
-                <span><i class="fas fa-subway"></i> Great Transport</span>
+        </div>
+        <div class="hero-heading">
+            <h1 class="hero-title">Find Your Right Room.</h1>
+            <h1 class="hero-subtitle">Get Your Right People.</h1>
+        </div>
+        
+        <div class="container">
+            <div class="search-cards-container">
+                <!-- Rent Card -->
+                <article class="search-card rent-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h2 class="glow-title">Find Your Perfect Room</h2>
+                        <p class="animated-subtitle">Browse verified listings near you</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="rent-location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                            <input type="text" id="rent-location" class="form-control" placeholder="Enter city, area or locality">
+                        </div>
+                        <div class="form-group">
+                            <label for="rent-type"><i class="fas fa-home"></i> Room Type</label>
+                            <select id="rent-type" class="form-control">
+                                <option value="">Select room type</option>
+                                <option value="single">Single Room</option>
+                                <option value="shared">Shared Room</option>
+                                <option value="flat">Full Flat</option>
+                                <option value="pg">PG Accommodation</option>
+                            </select>
+                        </div>
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i> Search Rooms
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Share Card -->
+                <article class="search-card share-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h2 class="glow-title">List Your Property</h2>
+                        <p class="animated-subtitle">Connect with verified tenants</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="share-location"><i class="fas fa-map-marker-alt"></i> Property Location</label>
+                            <input type="text" id="share-location" class="form-control" placeholder="Enter property location">
+                        </div>
+                        <div class="form-group">
+                            <label for="share-type"><i class="fas fa-users"></i> Preferred Tenants</label>
+                            <select id="share-type" class="form-control">
+                                <option value="">Select tenant type</option>
+                                <option value="students">Students</option>
+                                <option value="professionals">Professionals</option>
+                                <option value="tourists">Tourists</option>
+                                <option value="families">Families</option>
+                            </select>
+                        </div>
+                        <button class="search-btn">
+                            <i class="fas fa-plus-circle"></i> List Property
+                        </button>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Audience Filters -->
-    <section class="audience-section">
+    <!-- Problem Solution Section -->
+    <section class="problem-solution">
         <div class="container">
-            <div class="audience-filters">
-                <button class="audience-filter active" data-filter="all">All Stays</button>
-                <button class="audience-filter" data-filter="student">For Students</button>
-                <button class="audience-filter" data-filter="professional">For Professionals</button>
-                <button class="audience-filter" data-filter="traveler">For Travelers</button>
+            <h2>We Solve Your Rental Problems</h2>
+            <p class="section-subtitle">No more bad experiences - we verify everything</p>
+            
+            <div class="solution-grid">
+                <article class="solution-card">
+                    <div class="solution-img">
+                        <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="No fake listings" loading="lazy">
+                    </div>
+                    <div class="solution-content">
+                        <h3>No Fake Listings</h3>
+                        <p>Every property is personally verified by our team</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="solution-card">
+                    <div class="solution-img">
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Quality standards" loading="lazy">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Quality Standards</h3>
+                        <p>We check cleanliness and maintenance</p>
+                        <a href="#" class="learn-more">Our standards <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="solution-card">
+                    <div class="solution-img">
+                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Verified users" loading="lazy">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Verified Users</h3>
+                        <p>All users undergo ID verification</p>
+                        <a href="#" class="learn-more">About verification <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Featured Rooms Section -->
+    <section class="featured-rooms">
         <div class="container">
-            <div class="section-title">
-                <h2>Why Choose Roomefy?</h2>
-                <p>We cater to students, working professionals, and travelers with the best stays.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Student-Friendly</h3>
-                    <p>Affordable stays near campuses with study spaces.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
-                    <h3>Professional Ready</h3>
-                    <p>High-speed WiFi & workspaces in business districts.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-suitcase-rolling"></i></div>
-                    <h3>Traveler Convenience</h3>
-                    <p>Flexible bookings near transit hubs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Rooms Section -->
-    <section class="rooms">
-        <div class="container">
-            <div class="section-title">
-                <h2>Featured Rooms</h2>
-                <p>Handpicked stays for every need</p>
-            </div>
-            <div class="rooms-grid" id="featuredRooms">
-                <!-- Loaded from Firebase -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>What Our Guests Say</h2>
-                <p>Real experiences from students, professionals, and travelers</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p>"Perfect for my semester abroad! Great study spaces and close to campus."</p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student">
-                        <div>
-                            <h4>Sarah K.</h4>
-                            <p>Student</p>
-                            <div class="rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <h2>Featured Rooms</h2>
+            <p class="section-subtitle">Handpicked rooms with verified details</p>
+            
+            <div class="rooms-grid">
+                <!-- Room Card 1 -->
+                <article class="room-card">
+                    <div class="room-badge">Verified</div>
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Modern room with bed" loading="lazy">
+                        <div class="room-gallery-count"><i class="fas fa-camera"></i> 12</div>
+                    </div>
+                    <div class="room-details">
+                        <h3>Cozy Single Room in Andheri West</h3>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> 1 BHK</span>
+                            <span><i class="fas fa-arrows-alt-h"></i> 120 sq.ft</span>
+                            <span><i class="fas fa-bath"></i> Attached</span>
+                        </div>
+                        <div class="room-location">
+                            <i class="fas fa-map-marker-alt"></i> Andheri West, Mumbai
+                        </div>
+                        <div class="room-price">
+                            ₹12,000 <span>/month</span>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i> 4.8
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <p>"As a consultant, I need reliable WiFi and workspace. Roomefy delivers!"</p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Professional">
-                        <div>
-                            <h4>Raj M.</h4>
-                            <p>Business Consultant</p>
-                            <div class="rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </article>
+                
+                <!-- Room Card 2 -->
+                <article class="room-card">
+                    <div class="room-badge premium">Premium</div>
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Luxury room interior" loading="lazy">
+                        <div class="room-gallery-count"><i class="fas fa-camera"></i> 8</div>
+                    </div>
+                    <div class="room-details">
+                        <h3>Luxury Shared Room in Koramangala</h3>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> 2 BHK</span>
+                            <span><i class="fas fa-arrows-alt-h"></i> 180 sq.ft</span>
+                            <span><i class="fas fa-bath"></i> Attached</span>
+                        </div>
+                        <div class="room-location">
+                            <i class="fas fa-map-marker-alt"></i> Koramangala, Bangalore
+                        </div>
+                        <div class="room-price">
+                            ₹9,500 <span>/month</span>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i> 4.9
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <p>"Flexible check-in and great location. Will book again!"</p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Traveler">
-                        <div>
-                            <h4>Priya S.</h4>
-                            <p>Digital Nomad</p>
-                            <div class="rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </article>
+                
+                <!-- Room Card 3 -->
+                <article class="room-card">
+                    <div class="room-badge">New</div>
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Minimalist room design" loading="lazy">
+                        <div class="room-gallery-count"><i class="fas fa-camera"></i> 10</div>
+                    </div>
+                    <div class="room-details">
+                        <h3>Minimalist PG Room in Hauz Khas</h3>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> 1 BHK</span>
+                            <span><i class="fas fa-arrows-alt-h"></i> 110 sq.ft</span>
+                            <span><i class="fas fa-bath"></i> Common</span>
+                        </div>
+                        <div class="room-location">
+                            <i class="fas fa-map-marker-alt"></i> Hauz Khas, Delhi
+                        </div>
+                        <div class="room-price">
+                            ₹8,000 <span>/month</span>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i> 4.7
                             </div>
                         </div>
+                    </div>
+                </article>
+                
+                <!-- Room Card 4 -->
+                <article class="room-card">
+                    <div class="room-badge">Verified</div>
+                    <div class="room-image">
+                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Shared room with bunk beds" loading="lazy">
+                        <div class="room-gallery-count"><i class="fas fa-camera"></i> 6</div>
+                    </div>
+                    <div class="room-details">
+                        <h3>Girls PG Room in Kothrud</h3>
+                        <div class="room-features">
+                            <span><i class="fas fa-bed"></i> 3 Beds</span>
+                            <span><i class="fas fa-arrows-alt-h"></i> 150 sq.ft</span>
+                            <span><i class="fas fa-bath"></i> Attached</span>
+                        </div>
+                        <div class="room-location">
+                            <i class="fas fa-map-marker-alt"></i> Kothrud, Pune
+                        </div>
+                        <div class="room-price">
+                            ₹7,500 <span>/month</span>
+                            <div class="room-rating">
+                                <i class="fas fa-star"></i> 4.6
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="view-all">
+                <a href="#" class="btn btn-outline">View All Rooms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How Roomefy Works</h2>
+            <p class="section-subtitle">Find or list a room in just 3 simple steps</p>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Search or List</h3>
+                        <p>Browse through verified rooms or list your property with all details</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>Chat with potential roommates or tenants through our secure platform</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Move In</h3>
+                        <p>Finalize the deal and move into your new room or welcome your new tenant</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA for Property Owners -->
-    <section class="owner-cta">
+    <!-- Room Types Section -->
+    <section class="room-types">
         <div class="container">
-            <h2>Have a Property to List?</h2>
-            <p>Join thousands of hosts earning with Roomefy.</p>
-            <a href="#" class="btn btn-outline">List Your Property</a>
+            <h2>Explore Room Types</h2>
+            <p class="section-subtitle">Find the perfect living space that matches your needs</p>
+            
+            <div class="types-grid">
+                <article class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3>Single Rooms</h3>
+                    <p>Private rooms with all basic amenities for individuals</p>
+                    <a href="#" class="btn btn-outline">Explore</a>
+                </article>
+                
+                <article class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Shared Rooms</h3>
+                    <p>Affordable shared spaces with like-minded people</p>
+                    <a href="#" class="btn btn-outline">Explore</a>
+                </article>
+                
+                <article class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Full Flats</h3>
+                    <p>Complete apartments for families or groups</p>
+                    <a href="#" class="btn btn-outline">Explore</a>
+                </article>
+                
+                <article class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>PG Accommodation</h3>
+                    <p>Paying guest facilities with food options</p>
+                    <a href="#" class="btn btn-outline">Explore</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>What Our Users Say</h2>
+            <p class="section-subtitle">Real experiences from our community</p>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>Found my perfect room in Bangalore through Roomefy. The verification process gave me confidence and the room was exactly as shown in pictures.</p>
+                    </div>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Priya Sharma">
+                        <div>
+                            <h4>Priya Sharma</h4>
+                            <span>Software Engineer, Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>As a property owner, I was able to find reliable tenants quickly. The background verification feature is a game-changer!</p>
+                    </div>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rahul Mehta">
+                        <div>
+                            <h4>Rahul Mehta</h4>
+                            <span>Property Owner, Mumbai</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>Moving to Delhi for college was stressful, but Roomefy helped me find a safe PG near my university with verified roommates.</p>
+                    </div>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Anjali Patel">
+                        <div>
+                            <h4>Anjali Patel</h4>
+                            <span>Student, Delhi University</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Find Your Perfect Room?</h2>
+                <p>Join thousands of happy users who found their ideal living space</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Browse Rooms</a>
+                    <a href="#" class="btn btn-outline">List Your Property</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Roomefy</h3>
-                    <p>Smart stays for students, professionals, and travelers.</p>
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <div class="logo">
+                        <i class="fas fa-home"></i> <span>Roomefy</span>
+                    </div>
+                    <p>India's most trusted platform for verified room rentals</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Rooms</a></li>
-                        <li><a href="#">Destinations</a></li>
-                        <li><a href="#">Contact</a></li>
+                <div class="footer-col">
+                    <h3>For Tenants</h3>
+                    <ul>
+                        <li><a href="#">Browse Rooms</a></li>
+                        <li><a href="#">Safety Tips</a></li>
+                        <li><a href="#">Tenant Guide</a></li>
+                        <li><a href="#">Roommate Finder</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Safety Info</a></li>
-                        <li><a href="#">Cancellation Policy</a></li>
+                <div class="footer-col">
+                    <h3>For Owners</h3>
+                    <ul>
+                        <li><a href="#">List Property</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Owner Dashboard</a></li>
+                        <li><a href="#">Tenant Verification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Popular Cities</h3>
+                    <ul>
+                        <li><a href="#">Rooms in Mumbai</a></li>
+                        <li><a href="#">Rooms in Bangalore</a></li>
+                        <li><a href="#">Rooms in Delhi</a></li>
+                        <li><a href="#">Rooms in Hyderabad</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Roomefy . All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Roomefy Technologies Pvt Ltd. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Sitemap</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Firebase & Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script src="js/home.js" defer></script>
 </body>
 </html>
